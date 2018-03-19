@@ -74,7 +74,7 @@ public class AppTest
 //            System.out.println(vid);
             String iframe =iframeBg+vid+iframeEnd;
 //            System.out.println("iframe"+iframe);
-            video.attr("src",iframe).attr("width","98%").attr("height","640");
+            video.attr("src",iframe).attr("width","100%").attr("height","640");
         });
 
         //处理图片
