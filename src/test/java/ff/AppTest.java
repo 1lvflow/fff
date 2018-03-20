@@ -49,11 +49,13 @@ public class AppTest
 //        String iframeBg ="<iframe frameborder=\"0\" width=\"640\" height=\"498\" src=\"https://v.qq.com/iframe/player.html?vid=";
 //        String iframeEnd ="&tiny=0&auto=0\" allowfullscreen></iframe>";
         String iframeEnd ="&tiny=0&auto=0";
+        String mediaSrc="https://res.wx.qq.com/voice/getvoice?mediaid=";
         String link ="http://mp.weixin.qq.com/s?__biz=MjM5NzQ5MDg2MA==&mid=2650641446&idx=3&sn=a0239d5f8aa274b84e445b2b04051b43&chksm=bed00de589a784f38ee9574fd7157cc05289eb18c02042dcbe76af04824b218318f3ffaa0849#rd";
-        String path ="/Users/xmac/Desktop/sitemap01.html";
+        String link2 ="https://mp.weixin.qq.com/s/s4Jh1zkcGmalEBO1J9RFOg";
+        String path ="C:/Users/admin/Desktop/sitemap02.html";
         String bg ="vid=";
         String en ="&width";
-        String content = HttpUtils.get(link);
+        String content = HttpUtils.get(link2);
         if (StringUtils.isBlank(content)) {
             LOGGER.warn("Link错误");
             return;
@@ -83,6 +85,13 @@ public class AppTest
             System.out.println(img.toString());
            String src =  img.attr("data-src");
            img.attr("src",src);
+        });
+        Elements medias = doc.select("mpvoice");
+        medias.forEach(media->{
+            System.out.println(media.toString());
+            String src =  media.attr("voice_encode_fileid");
+            src =mediaSrc+src;
+            media.attr("src",src);
         });
 
 
