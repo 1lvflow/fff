@@ -51,7 +51,9 @@ public class AppTest
         String iframeBg ="https://v.qq.com/iframe/player.html?vid=";
 //        String iframeBg ="<iframe frameborder=\"0\" width=\"640\" height=\"498\" src=\"https://v.qq.com/iframe/player.html?vid=";
 //        String iframeEnd ="&tiny=0&auto=0\" allowfullscreen></iframe>";
-        StringBuilder mediaTag=new StringBuilder("<audio src=\"https://res.wx.qq.com/voice/getvoice?mediaid=<mediaID>\" controls autoplay></audio>");
+        StringBuilder mediaTag=new StringBuilder("<mediaID>");
+        String mediaBg ="<audio src=\"";
+        String mediaEnd="\" controls autoplay></audio>";
         String iframeEnd ="&tiny=0&auto=0";
         String mediaSrc="https://res.wx.qq.com/voice/getvoice?mediaid=";
         String link ="http://mp.weixin.qq.com/s?__biz=MjM5NzQ5MDg2MA==&mid=2650641446&idx=3&sn=a0239d5f8aa274b84e445b2b04051b43&chksm=bed00de589a784f38ee9574fd7157cc05289eb18c02042dcbe76af04824b218318f3ffaa0849#rd";
@@ -107,11 +109,13 @@ public class AppTest
 
             Element p = media.parent();
             p.select("mpvoice").remove();
-            p.html();
+            String mediaTags=mediaBg+src+mediaEnd;
+            System.out.println(mediaTags);
+            p.html(mediaTags);
         });
 
 
- //       FileUtils.WriteStringToFile2(path,doc.toString());
+      FileUtils.WriteStringToFile2(path,doc.toString());
 //        System.out.println(videos.toString());
 //        Element metaContent = doc.select("div#meta_content").first();
 //        Elements ems = metaContent.select("em");
