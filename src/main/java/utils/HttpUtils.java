@@ -31,7 +31,7 @@ public class HttpUtils {
             // 建立实际的连接
             connection.connect();
             // 定义 BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
             StringBuffer sb = new StringBuffer();
             String line;
             while ((line = in.readLine()) != null) {
