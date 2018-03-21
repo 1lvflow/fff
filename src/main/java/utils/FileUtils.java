@@ -9,9 +9,10 @@ public class FileUtils {
     public static void WriteStringToFile2(String filePath, String txt) {
         try {
             File f=new File(filePath);
-            if(!f.exists()){
-                f.createNewFile();
+            if(f.exists()){
+                f.delete();
             }
+            f.createNewFile();
 
             FileWriter fw = new FileWriter(filePath, true);
             BufferedWriter bw = new BufferedWriter(fw);

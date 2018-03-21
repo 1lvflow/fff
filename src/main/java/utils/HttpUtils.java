@@ -25,7 +25,7 @@ public class HttpUtils {
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
-            //connection.setRequestProperty("user-agent", "google_user_agent");
+            connection.setRequestProperty("user-agent", "google_user_agent");
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             // 建立实际的连接
