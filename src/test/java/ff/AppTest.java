@@ -54,7 +54,7 @@ public class AppTest
         String iframeEnd = "&tiny=0&auto=0";
         String mediaSrc = "https://res.wx.qq.com/voice/getvoice?mediaid=";
         String link = "http://mp.weixin.qq.com/s?__biz=MjM5NzQ5MDg2MA==&mid=2650641446&idx=3&sn=a0239d5f8aa274b84e445b2b04051b43&chksm=bed00de589a784f38ee9574fd7157cc05289eb18c02042dcbe76af04824b218318f3ffaa0849#rd";
-        String link2 = "";
+        String link2 = "https://mp.weixin.qq.com/s/LgeOd4GJLWkdWgVr6hr_og";
         String path = "C:/Users/admin/Desktop/sitemap02.html";
         String bg = "vid=";
         String en = "&width";
@@ -67,20 +67,27 @@ public class AppTest
         //     FileUtils.WriteStringToFile2(path,content);
         Document doc = Jsoup.parse(content);
         Element metaContent = doc.select("div#meta_content").first();
-        Elements ems = metaContent.select("em");
+        Elements ems = metaContent.select("em ");
+        System.out.println("作者"+ems.toString());
+        System.out.println(ems.get(1).text());
+        Elements aSource = metaContent.select("a");
+        System.out.println("来源"+aSource.toString());
         //删除来源和作者
         doc.select("div#meta_content").first().remove();
+        doc = this.manageUselessTag(doc);
         // 处理视频
         doc = manageMovie(doc);
         //处理图片
         doc = this.managePic(doc);
+
         //替换音频
+        doc = manageAudio(doc,null);
 
 
-        doc = this.manageUselessTag(doc);
 
-
-        FileUtils.WriteStringToFile2(path, doc.toString());
+        String docString = doc.toString();
+     //   docString = docString.replaceAll("#js_content > p:nth-child(103) > strong > span","");
+        FileUtils.WriteStringToFile2(path, docString);
     }
 
     //处理音频
@@ -151,18 +158,22 @@ public class AppTest
         //删除无用标签
         Elements aTags = doc.select("a[href]");
         aTags.forEach(a -> {
-            System.out.println(a.toString());
-            a.remove();
+            System.out.println("A标签"+a.toString());
+            a.attr("href","javascript:return false;");
+            System.out.println("A标签"+a.toString());
+          //  String p = a.text()
+          //  a.wrap("<p></p>");
         });
 
-        Elements sections = doc.select("section");
-        sections.forEach(section -> {
-            System.out.println(section.toString());
-            System.out.println(section.text());
-            if (section.text().contains("推荐阅读")) {
-                section.remove();
-            }
-        });
+
+//        Elements sections = doc.select("section");
+//        sections.forEach(section -> {
+//            System.out.println(section.toString());
+//            System.out.println(section.text());
+//            if (section.text().contains("推荐阅读")) {
+//                section.remove();
+//            }
+//        });
         return doc;
     }
 }
