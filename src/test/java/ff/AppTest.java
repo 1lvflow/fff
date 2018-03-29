@@ -92,7 +92,7 @@ public class AppTest
 
     //处理音频
     private Document manageAudio(Document doc, Long infoId) {
-        final String mediaBg = "<audio src=\"";
+        final String mediaBg = "<audio src=\"https://res.wx.qq.com/voice/getvoice?mediaid=";
         final String mediaEnd = "\" controls autoplay></audio>";
 
         Elements medias = doc.select("mpvoice");
