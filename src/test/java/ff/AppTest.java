@@ -134,9 +134,7 @@ public class AppTest
             int begin = vi.indexOf(bg);
             int end = vi.indexOf(en);
             String vid = vi.substring(begin + bg.length(), end);
-//            System.out.println(vid);
             String iframe = iframeBg + vid + iframeEnd;
-//            System.out.println("iframe"+iframe);
             video.attr("src", iframe).attr("width", "100%").attr("height", "auto");
         });
         return doc;
