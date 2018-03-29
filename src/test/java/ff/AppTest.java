@@ -56,6 +56,8 @@ public class AppTest
         String link = "http://mp.weixin.qq.com/s?__biz=MjM5NzQ5MDg2MA==&mid=2650641446&idx=3&sn=a0239d5f8aa274b84e445b2b04051b43&chksm=bed00de589a784f38ee9574fd7157cc05289eb18c02042dcbe76af04824b218318f3ffaa0849#rd";
         String link2 = "https://mp.weixin.qq.com/s/LgeOd4GJLWkdWgVr6hr_og";
         String path = "C:/Users/admin/Desktop/sitemap02.html";
+        String pathMac = "/Users/xmac/Desktop/sitemap02.html";
+
         String bg = "vid=";
         String en = "&width";
         String content = HttpUtils.get(link2);
@@ -87,7 +89,7 @@ public class AppTest
 
         String docString = doc.toString();
      //   docString = docString.replaceAll("#js_content > p:nth-child(103) > strong > span","");
-        FileUtils.WriteStringToFile2(path, docString);
+        FileUtils.WriteStringToFile2(pathMac, docString);
     }
 
     //处理音频
@@ -135,7 +137,7 @@ public class AppTest
 //            System.out.println(vid);
             String iframe = iframeBg + vid + iframeEnd;
 //            System.out.println("iframe"+iframe);
-            video.attr("src", iframe).attr("width", "100%").attr("height", "640");
+            video.attr("src", iframe).attr("width", "100%").attr("height", "auto");
         });
         return doc;
     }
@@ -163,6 +165,12 @@ public class AppTest
             System.out.println("A标签"+a.toString());
           //  String p = a.text()
           //  a.wrap("<p></p>");
+        });
+
+        Elements scripts = doc.select("script");
+        scripts.forEach(script->{
+            System.out.println(script.toString());
+            script.remove();
         });
 
 
