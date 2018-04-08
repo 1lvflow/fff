@@ -136,7 +136,10 @@ public class AppTest
             int end = vi.indexOf(en);
             String vid = vi.substring(begin + bg.length(), end);
             String iframe = iframeBg + vid + iframeEnd;
-            video.attr("src", iframe).attr("width", "100%").attr("height", "auto");
+            video.attr("src", iframe).
+                    attr("width", "100%")
+                    .attr("height", "auto")
+                    .attr("allowfullscreen", "true");
         });
         return doc;
     }
