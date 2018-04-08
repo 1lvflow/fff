@@ -15,6 +15,8 @@ import utils.HttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Unit test for simple App.
@@ -70,26 +72,25 @@ public class AppTest
         Document doc = Jsoup.parse(content);
         Element metaContent = doc.select("div#meta_content").first();
         Elements ems = metaContent.select("em ");
-        System.out.println("作者"+ems.toString());
+        System.out.println("作者" + ems.toString());
         System.out.println(ems.get(1).text());
         Elements aSource = metaContent.select("a");
-        System.out.println("来源"+aSource.toString());
+        System.out.println("来源" + aSource.toString());
         //删除来源和作者
         doc.select("div#meta_content").first().remove();
-        doc = this.manageUselessTag(doc);
         // 处理视频
         doc = manageMovie(doc);
         //处理图片
         doc = this.managePic(doc);
 
         //替换音频
-        doc = manageAudio(doc,null);
+        doc = manageAudio(doc, null);
 
 
-
+        doc = this.manageUselessTag(doc);
         String docString = doc.toString();
-     //   docString = docString.replaceAll("#js_content > p:nth-child(103) > strong > span","");
-        FileUtils.WriteStringToFile2(pathMac, docString);
+        //   docString = docString.replaceAll("#js_content > p:nth-child(103) > strong > span","");
+        FileUtils.WriteStringToFile2(pathMac, replaseOnString(docString));
     }
 
     //处理音频
@@ -158,28 +159,61 @@ public class AppTest
         //删除无用标签
         Elements aTags = doc.select("a[href]");
         aTags.forEach(a -> {
-            System.out.println("A标签"+a.toString());
-            a.attr("href","javascript:return false;");
-            System.out.println("A标签"+a.toString());
-          //  String p = a.text()
-          //  a.wrap("<p></p>");
+            System.out.println("A标签" + a.toString());
+            a.attr("href", "javascript:return false;");
+            System.out.println("A标签" + a.toString());
+            //  String p = a.text()
+            //  a.wrap("<p></p>");
         });
 
+        //删除script
         Elements scripts = doc.select("script");
-        scripts.forEach(script->{
-            System.out.println(script.toString());
+        scripts.forEach(script -> {
             script.remove();
         });
 
+        //处理style
+        Elements styles = doc.getElementsByTag("style");
+        styles.forEach(style -> {
+            String styleString = style.toString().replace("font:inherit;", "").replace("font-size:100%;", "");
+            style.wrap("<style></style>");
+            Element newStyle = style.parent();
+            style.remove();
+            newStyle.html(styleString);
+        });
 
-//        Elements sections = doc.select("section");
-//        sections.forEach(section -> {
-//            System.out.println(section.toString());
-//            System.out.println(section.text());
-//            if (section.text().contains("推荐阅读")) {
-//                section.remove();
-//            }
-//        });
+        //处理body
+        Elements bodys = doc.getElementsByTag("body");
+        bodys.forEach(body -> {
+            String bodyString = body.toString()
+                    //.replace("body", "div")
+                    .replace("data-src", "src")
+                    .replace("http://", "https://")
+                    .replace("?wx_fmt=jpeg", "")
+                    .replace("?wx_fmt=png", "")
+                    .replace("?wx_fmt=jpg", "")
+                    .replace("?wx_fmt=gif", "");
+            body.wrap("<body></body>");
+            Element newStyle = body.parent();
+            body.remove();
+            newStyle.html(bodyString);
+        });
         return doc;
+    }
+
+
+    //转为String 后做最后去除无用内容
+    private String replaseOnString(String content) {
+        String patt = "点击.*听课";
+        String replacedContent = replacePattern(patt, content);
+        return replacedContent.replace("<!--tailTrap<body></body><head></head><html></html>-->", "")
+                .replace("<!--headTrap<body></body><head></head><html></html>-->", "");
+    }
+
+    //根据正则去除String内容
+    private String replacePattern(String pattern, String content) {
+        Pattern patt = Pattern.compile(pattern);
+        Matcher m = patt.matcher(content);
+        return m.replaceAll("");
     }
 }
