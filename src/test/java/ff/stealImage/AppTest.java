@@ -39,7 +39,7 @@ public class AppTest  {
 
 
 
-        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.STEAL_IMAGE;
+        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.CG_IMAGE;
         int x = (imageTypeEnum.getEnd()-imageTypeEnum.getStart()) / 5;
 
         new Thread(() -> {

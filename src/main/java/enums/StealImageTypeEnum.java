@@ -4,17 +4,17 @@ public enum StealImageTypeEnum implements BaseCodeEnum {
 
     STEAL_IMAGE(9, "偷拍自拍", 84800, 122599),
 
-    ASIA_IMAGE(1, "亚洲", 1, 1),
+    ASIA_IMAGE(1, "亚洲", 88483, 122630),
 
-    US_IMAGE(2, "欧美", 1, 1),
+    US_IMAGE(2, "欧美", 87893, 111379),
 
-    CG_IMAGE(3, "动漫", 1, 1),
+    CG_IMAGE(3, "动漫", 87310, 114653),
 
-    CONFUSED_SEX_IMAGE(4, "乱性&另类", 1, 1),
+    CONFUSED_SEX_IMAGE(4, "乱性&另类", 86730, 114632),
 
-    BEAUTIFUL_STOCKING(7, "偷拍", 1, 1),
+    BEAUTIFUL_STOCKING(7, "美腿丝袜", 86124, 110365),
 
-    ADJECTIVE_IMAGE(8, "唯美", 1, 1);
+    ADJECTIVE_IMAGE(8, "唯美", 85531, 122661);
 
 
     private int code;
