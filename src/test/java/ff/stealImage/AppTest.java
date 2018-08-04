@@ -1,7 +1,5 @@
 package ff.stealImage;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,44 +19,84 @@ import utils.HttpUtils;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase {
+public class AppTest  {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
 
 
-    private final String baseImageUrl = "http://www.197tt.com/htm/pic%s/%s.htm";
+    private static final String baseImageUrl = "http://www.197tt.com/htm/pic%s/%s.htm";
 
     private final String basePath = "C:/Users/admin/Desktop/%s.html";
     //文件夹名+文件名
-    private final String basePathMac = "/Volumes/外接磁盘/stealImage/%s";
+    private static final String basePathMac = "/Volumes/外接磁盘/stealImage/%s";
 
     @Data
-    private class ImageMessage {
+    private static class ImageMessage {
         private String title;
         private List<String> urls;
     }
 
-    /**
-     * 爬取文件
-     */
-    public void testApp() {
-        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.STEAL_IMAGE;
-        String url = null;
-        for (int i = imageTypeEnum.getStart(); i <= imageTypeEnum.getEnd(); i++) {
-            url = String.format(baseImageUrl, imageTypeEnum.getCode(), i);
+    public static void main(String[] args) {
 
+
+
+        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.STEAL_IMAGE;
+        int x = (imageTypeEnum.getEnd()-imageTypeEnum.getStart()) / 5;
+
+        new Thread(() -> {
+            for (int i = imageTypeEnum.getStart(); i <= imageTypeEnum.getStart() + x; i++) {
+                downloadOne(imageTypeEnum, i);
+            }
+        }).start();
+        new Thread(()->{
+            for (int i = imageTypeEnum.getStart()+x; i <= imageTypeEnum.getStart()+x*2; i++) {
+                downloadOne(imageTypeEnum, i);
+            }
+
+        }).start();
+        new Thread(()->{
+            for (int i = imageTypeEnum.getStart()+x*2; i <= imageTypeEnum.getStart()+x*3; i++) {
+                downloadOne(imageTypeEnum, i);
+            }
+
+        }).start();
+        new Thread(()->{
+            for (int i =imageTypeEnum.getStart()+x*3; i <= imageTypeEnum.getStart()+x*4; i++) {
+                downloadOne(imageTypeEnum, i);
+            }
+
+        }).start();
+        new Thread(()->{
+            for (int i = imageTypeEnum.getStart()+x*4; i <= imageTypeEnum.getEnd(); i++) {
+                downloadOne(imageTypeEnum, i);
+            }
+
+        }).start();
+
+    }
+
+    private static void downloadOne(StealImageTypeEnum imageTypeEnum, int i) {
+        String url;
+        url = String.format(baseImageUrl, imageTypeEnum.getCode(), i);
+
+
+        try {
             // 解析
             ImageMessage message = getMessage(url);
 
             // 保存
             getImageByte(message, imageTypeEnum);
+        }catch (Exception e){
+            LOGGER.error(e.getMessage());
+            return;
         }
+
 
     }
 
     /**
      * 获取图片地址信息
      */
-    private ImageMessage getMessage(String url) {
+    private static ImageMessage getMessage(String url) {
 
         String content = HttpUtils.get(url);
         if (StringUtils.isBlank(content)) {
@@ -87,8 +125,8 @@ public class AppTest extends TestCase {
     }
 
 
-    private void getImageByte(ImageMessage message, StealImageTypeEnum imageTypeEnum) {
-        //
+    private static void getImageByte(ImageMessage message, StealImageTypeEnum imageTypeEnum) {
+
 
         List<String> imgUrls = message.getUrls();
 
