@@ -21,8 +21,7 @@ import java.util.regex.Pattern;
 /**
  * Unit test for simple App.
  */
-public class AppTest
-        extends TestCase {
+public class AppTest extends TestCase {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
 
     /**
