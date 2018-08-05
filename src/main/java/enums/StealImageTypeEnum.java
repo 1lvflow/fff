@@ -10,7 +10,7 @@ public enum StealImageTypeEnum implements BaseCodeEnum {
 
     CG_IMAGE(3, "动漫", 87310, 114653),
 
-    CONFUSED_SEX_IMAGE(4, "乱性&另类", 86730, 114632),
+    CONFUSED_SEX_IMAGE(4, "另类", 86730, 114632),
 
     BEAUTIFUL_STOCKING(7, "美腿丝袜", 86124, 110365),
 

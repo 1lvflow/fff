@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,6 +18,7 @@ import enums.StealImageTypeEnum;
 import lombok.Data;
 import utils.DownloadUtil;
 import utils.HttpUtils;
+import utils.UseAgent;
 
 import static java.lang.Thread.sleep;
 
@@ -33,6 +35,9 @@ public class AppTest {
     //文件夹名+文件名
     private static final String basePathMac = "/Volumes/外接磁盘/stealImage/%s";
 
+
+
+
     @Data
     private static class ImageMessage {
         private String title;
@@ -41,10 +46,10 @@ public class AppTest {
 
     public static void main(String[] args) {
 
-
+        int size = 800;
         StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.STEAL_IMAGE;
-        int threadSize = 30;
-        int x = (imageTypeEnum.getEnd() - imageTypeEnum.getStart()) / threadSize;
+        int threadSize = 20;
+        int x = (size) / threadSize;
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threadSize);
 
         for (int j = 0; j < threadSize; j++) {
@@ -58,7 +63,7 @@ public class AppTest {
                         e.printStackTrace();
                     }
                 }
-
+                System.out.println("主进程完成");
             });
         }
 
@@ -67,7 +72,7 @@ public class AppTest {
     private static void downloadOne(StealImageTypeEnum imageTypeEnum, int i) {
         String url;
         url = String.format(baseImageUrl, imageTypeEnum.getCode(), i);
-
+        System.out.println(url);
 
         try {
             // 解析
@@ -107,27 +112,38 @@ public class AppTest {
         imgContent.forEach(e -> {
             String imgUrl = e.attr("src");
             urls.add(imgUrl);
-            System.out.println(e.attr("src"));
         });
         imageMessage.setUrls(urls);
 
         return imageMessage;
     }
 
-
+    /**
+     * 请求imgUrl
+     */
     private static void getImageByte(ImageMessage message, StealImageTypeEnum imageTypeEnum) {
 
 
         List<String> imgUrls = message.getUrls();
+
+        String filePagePath = String.format(basePathMac, imageTypeEnum.getDescription() + "/" + message.getTitle());
+        if (isCreatedFilePage(filePagePath)) return;
+
         imgUrls.forEach((String e) -> {
             // path
             String fileName = e.substring(e.lastIndexOf("/") + 1);//从后往前寻找
 
             String path = String.format(basePathMac, imageTypeEnum.getDescription() + "/" + message.getTitle() + "/" + fileName);
 
+
             try {
-//                    FileUtils.downloadPicture(e, path);
-                DownloadUtil download = new DownloadUtil(e, path, 8);
+
+  //                  FileUtils.downloadPicture(e, path);
+
+                int index = (int) (Math.random() * UseAgent.user_agent_list.length);
+
+                DownloadUtil download = new DownloadUtil(e, path, 4,UseAgent.user_agent_list[index]);
+                download.downloadPicture();
                 download.download();
                 new Thread(new Runnable() {
 
@@ -148,6 +164,18 @@ public class AppTest {
                 e1.printStackTrace();
             }
         });
+    }
+
+    private static boolean isCreatedFilePage(String path) {
+        // 创建文件夹
+        System.out.println(path);
+        File file = new File(path);
+        if(file.exists()){
+            System.out.println("文件夹已经存在"+path);
+            return true;
+        }
+        file.mkdirs();
+        return false;
     }
 
 

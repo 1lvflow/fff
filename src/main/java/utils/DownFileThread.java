@@ -14,13 +14,16 @@ public class DownFileThread   extends Thread {
     private long size;
     public long length;
     private String path;
+    private String useAgent;
 
-    public DownFileThread(long startPos, RandomAccessFile raf, String path,long size) {
+
+    public DownFileThread(long startPos, RandomAccessFile raf, String path,long size,String useAgent) {
         super();
         this.startPos = startPos;
         this.raf = raf;
         this.size = size;
         this.path = path ;
+        this.useAgent = useAgent;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class DownFileThread   extends Thread {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent", "google_user_agent");
+            conn.setRequestProperty("user-agent", useAgent);
 
             InputStream in = conn.getInputStream();
             in.skip(this.startPos);
