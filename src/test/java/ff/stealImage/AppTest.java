@@ -10,16 +10,20 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import enums.StealImageTypeEnum;
 import lombok.Data;
-import utils.FileUtils;
+import utils.DownloadUtil;
 import utils.HttpUtils;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest  {
+public class AppTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
 
 
@@ -38,39 +42,25 @@ public class AppTest  {
     public static void main(String[] args) {
 
 
+        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.STEAL_IMAGE;
+        int threadSize = 30;
+        int x = (imageTypeEnum.getEnd() - imageTypeEnum.getStart()) / threadSize;
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threadSize);
 
-        StealImageTypeEnum imageTypeEnum = StealImageTypeEnum.CG_IMAGE;
-        int x = (imageTypeEnum.getEnd()-imageTypeEnum.getStart()) / 5;
+        for (int j = 0; j < threadSize; j++) {
+            int finalJ = j;
+            fixedThreadPool.execute(() -> {
+                for (int i = imageTypeEnum.getStart() + x * finalJ; i <= imageTypeEnum.getStart() + x * (finalJ + 1); i++) {
+                    downloadOne(imageTypeEnum, i);
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
 
-        new Thread(() -> {
-            for (int i = imageTypeEnum.getStart(); i <= imageTypeEnum.getStart() + x; i++) {
-                downloadOne(imageTypeEnum, i);
-            }
-        }).start();
-        new Thread(()->{
-            for (int i = imageTypeEnum.getStart()+x; i <= imageTypeEnum.getStart()+x*2; i++) {
-                downloadOne(imageTypeEnum, i);
-            }
-
-        }).start();
-        new Thread(()->{
-            for (int i = imageTypeEnum.getStart()+x*2; i <= imageTypeEnum.getStart()+x*3; i++) {
-                downloadOne(imageTypeEnum, i);
-            }
-
-        }).start();
-        new Thread(()->{
-            for (int i =imageTypeEnum.getStart()+x*3; i <= imageTypeEnum.getStart()+x*4; i++) {
-                downloadOne(imageTypeEnum, i);
-            }
-
-        }).start();
-        new Thread(()->{
-            for (int i = imageTypeEnum.getStart()+x*4; i <= imageTypeEnum.getEnd(); i++) {
-                downloadOne(imageTypeEnum, i);
-            }
-
-        }).start();
+            });
+        }
 
     }
 
@@ -85,7 +75,7 @@ public class AppTest  {
 
             // 保存
             getImageByte(message, imageTypeEnum);
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return;
         }
@@ -129,7 +119,6 @@ public class AppTest  {
 
 
         List<String> imgUrls = message.getUrls();
-
         imgUrls.forEach((String e) -> {
             // path
             String fileName = e.substring(e.lastIndexOf("/") + 1);//从后往前寻找
@@ -137,13 +126,28 @@ public class AppTest  {
             String path = String.format(basePathMac, imageTypeEnum.getDescription() + "/" + message.getTitle() + "/" + fileName);
 
             try {
-                FileUtils.downloadPicture(e, path);
+//                    FileUtils.downloadPicture(e, path);
+                DownloadUtil download = new DownloadUtil(e, path, 8);
+                download.download();
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        while (download.getDownRate() < 1) {
+                            System.out.println(download.getDownRate());
+                            try {
+                                Thread.sleep(200); // 200毫秒扫描一次
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                }).start();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
         });
-
     }
 
 
