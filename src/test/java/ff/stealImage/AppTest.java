@@ -144,22 +144,22 @@ public class AppTest {
 
                 DownloadUtil download = new DownloadUtil(e, path, 4,UseAgent.user_agent_list[index]);
                 download.downloadPicture();
-                download.download();
-                new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        while (download.getDownRate() < 1) {
-                            System.out.println(download.getDownRate());
-                            try {
-                                Thread.sleep(200); // 200毫秒扫描一次
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                }).start();
+//                download.download();
+//                new Thread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        while (download.getDownRate() < 1) {
+//                            System.out.println(download.getDownRate());
+//                            try {
+//                                Thread.sleep(200); // 200毫秒扫描一次
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//
+//                }).start();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

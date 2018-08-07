@@ -94,6 +94,9 @@ public class DownloadUtil {
         //new一个文件对象用来保存图片，默认保存当前工程根目录
 
         File imgFile = new File(targetPath);
+        if(imgFile.isFile()){
+            imgFile.createNewFile();
+        }
 
         //创建输出流
         FileOutputStream outStream = new FileOutputStream(imgFile);
