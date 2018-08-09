@@ -135,6 +135,7 @@ public class FfmpegUtil {
             command.add(ffmpegPath + "ffmpeg");
             command.add("-i");
             command.add(oldfilepath);
+            command.add("-y");
             command.add("-b:v");
             command.add("192k");
             command.add(outputPath);

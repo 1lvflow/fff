@@ -8,15 +8,15 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.stream.Collectors;
 
 import enums.StealVideoTypeEnum;
 import ff.stealImage.AppTest;
 import lombok.Data;
+import utils.FileUtils;
 import utils.HttpUtils;
 import utils.UseAgent;
-import utils.ffmpeg.ConvertVideo;
+import utils.ffmpeg.FfmpegUtil;
 
 public class StealVideo {
 
@@ -30,7 +30,7 @@ public class StealVideo {
     private static final String BASE_SRC = "https://m3u8.121yy.com/m3u8/javbox_water_m3u8%s";
 
 
-    public static String basePath = "/Volumes/外接磁盘/stealm3u8/%s";
+    public static String basePath = "/Volumes/外接磁盘/stealm3u8/steal/%s";
 
     //文件夹名+文件名
     public static String BASE_PATH = "/Users/xmac/Documents/apple/steal/%s";
@@ -44,35 +44,36 @@ public class StealVideo {
 
     public static void main(String[] args) {
         StealVideoTypeEnum videoTypeEnum = StealVideoTypeEnum.STEAL;
-        int size = 20;
-
-        for (int i = videoTypeEnum.getStart(); i <= videoTypeEnum.getStart() + size; i++) {
+        int size = 22;
+        int oldSize = 78;
+        for (int i = videoTypeEnum.getStart() + oldSize; i <= videoTypeEnum.getStart() + oldSize + size; i++) {
             downloadOne(i);
         }
 
+        System.out.println("已经完成"+size+"条");
     }
 
     private static void downloadOne(int i) {
 
 
+        VideoMessage message = new VideoMessage();
+
         try {
             // 解析
-            VideoMessage message = getMessage(i);
-
+            message = getMessage(i);
             // 保存
             DownloadM3U8.download(basePath, message.getTitle(), message.getUrl(), UseAgent.user_agent_list[0]);
-
             // 转码
             String input = String.format(basePath, message.getTitle()) + "/" + message.getTitle() + ".ts";
             System.out.println(input);
-//            String output = String.format(basePath, message.getTitle()) + "/" + message.getTitle() + ".mp4";
-            ConvertVideo.convertVedio(input);
-
-            new File(input).delete();
-
+            String output = String.format(basePath,(message.getTitle() + ".mp4"));
+            FfmpegUtil.ffmpeg("",input,output);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return;
+        } finally {
+            // 删除
+             FileUtils.delFolder(String.format(basePath,message.getTitle()));
         }
 
 
