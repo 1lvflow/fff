@@ -22,7 +22,7 @@ public class DownloadM3U8 {
     public static String s2 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
 
     public static void main(String[] args) {
-        String path = String.format(BASE_PATH,1);
+        String path = String.format(BASE_PATH, 1);
         File tfile = new File(path);
         if (!tfile.exists()) {
             tfile.mkdirs();
@@ -63,17 +63,19 @@ public class DownloadM3U8 {
                         if (fos != null) {
                             fos.close();
                         }
-                    } catch (IOException e) {e.printStackTrace();}
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         System.out.println("文件下载完毕!");
-        mergeFiles(tfile.listFiles(), path+"/"+"test.ts");
+        mergeFiles(tfile.listFiles(), path + "/" + "test.ts");
     }
 
-    public static void download(String downloadPath,String title,String videoUrl,String useAgent){
+    public static void download(String downloadPath, String title, String videoUrl, String useAgent) {
 
-        String path = String.format(downloadPath,title);
+        String path = String.format(downloadPath, title);
         File tfile = new File(path);
         if (!tfile.exists()) {
             tfile.mkdirs();
@@ -114,16 +116,20 @@ public class DownloadM3U8 {
                         if (fos != null) {
                             fos.close();
                         }
-                    } catch (IOException e) {e.printStackTrace();}
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         System.out.println("文件下载完毕!");
-        mergeFiles(tfile.listFiles(), path+"/"+title+".ts");
+        mergeFiles(tfile.listFiles(), getResultPath(title, path));
 
     }
 
-
+    private static String getResultPath(String title, String path) {
+        return path + "/" + title + ".ts";
+    }
 
 
     public static M3U8 getM3U8ByURL(String m3u8URL) {
@@ -174,6 +180,10 @@ public class DownloadM3U8 {
         }
         return null;
     }
+
+    /**
+     * 拼接
+     */
     public static boolean mergeFiles(File[] fpaths, String resultPath) {
         if (fpaths == null || fpaths.length < 1) {
             return false;
@@ -189,6 +199,10 @@ public class DownloadM3U8 {
         }
         File resultFile = new File(resultPath);
 
+        if(resultFile.exists()){
+            return true;
+        }
+
         try {
             FileOutputStream fs = new FileOutputStream(resultFile, true);
             FileChannel resultFileChannel = fs.getChannel();
@@ -202,6 +216,7 @@ public class DownloadM3U8 {
             }
             fs.close();
             resultFileChannel.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -15,6 +15,7 @@ import ff.stealImage.AppTest;
 import lombok.Data;
 import utils.HttpUtils;
 import utils.UseAgent;
+import utils.ffmpeg.ConvertVideo;
 
 public class StealVideo {
 
@@ -28,9 +29,10 @@ public class StealVideo {
     private static final String BASE_SRC = "https://m3u8.121yy.com/m3u8/javbox_water_m3u8%s";
 
 
-    private final String basePath = "C:/Users/admin/Desktop/%s.html";
+    public static String basePath = "/Volumes/外接磁盘/stealm3u8/%s";
+
     //文件夹名+文件名
-    public static String BASE_PATH = "/Volumes/外接磁盘/stealm3u8/%s";
+    public static String BASE_PATH = "/Users/xmac/Documents/apple/steal/%s";
 
     @Data
     private static class VideoMessage {
@@ -41,7 +43,7 @@ public class StealVideo {
 
     public static void main(String[] args) {
         StealVideoTypeEnum videoTypeEnum = StealVideoTypeEnum.STEAL;
-        int size = 100;
+        int size = 20;
 
         for (int i = videoTypeEnum.getStart(); i <= videoTypeEnum.getStart() + size; i++) {
             downloadOne(i);
@@ -57,7 +59,15 @@ public class StealVideo {
             VideoMessage message = getMessage(i);
 
             // 保存
-            DownloadM3U8.download(BASE_PATH, message.getTitle(), message.getUrl(), UseAgent.user_agent_list[0]);
+            DownloadM3U8.download(basePath, message.getTitle(), message.getUrl(), UseAgent.user_agent_list[0]);
+
+            // 转码
+            String input = String.format(basePath, message.getTitle()) + "/" + message.getTitle() + ".ts";
+            System.out.println(input);
+//            String output = String.format(basePath, message.getTitle()) + "/" + message.getTitle() + ".mp4";
+            ConvertVideo.convertVedio(input);
+
+            new File(input).delete();
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
