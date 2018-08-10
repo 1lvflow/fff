@@ -73,9 +73,9 @@ public class DownloadM3U8 {
         mergeFiles(tfile.listFiles(), path + "/" + "test.ts");
     }
 
-    public static void download(String downloadPath, String title, String videoUrl, String useAgent) {
+    public static void download(String path,String title, String videoUrl, String useAgent) {
 
-        String path = String.format(downloadPath, title);
+
         File tfile = new File(path);
         if (!tfile.exists()) {
             tfile.mkdirs();

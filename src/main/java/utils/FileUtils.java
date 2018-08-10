@@ -118,6 +118,7 @@ public class FileUtils {
             String filePath = folderPath;
             filePath = filePath.toString();
             java.io.File myFilePath = new java.io.File(filePath);
+            if(myFilePath.exists())
             myFilePath.delete(); //删除空文件夹
         } catch (Exception e) {
             e.printStackTrace();

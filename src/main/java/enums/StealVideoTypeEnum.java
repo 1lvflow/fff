@@ -2,9 +2,9 @@ package enums;
 
 public enum StealVideoTypeEnum implements BaseCodeEnum {
 
-    STEAL(43, "偷拍自拍", 2001, 3600);
+    STEAL(3, "偷拍自拍", 2001, 3600),
 
-//    ASIA_IMAGE(1, "亚洲", 88483, 122630),
+    ASIA_IMAGE(8, "日本无码", 7941, 2828);
 //
 //    US_IMAGE(2, "欧美", 87893, 111379),
 //

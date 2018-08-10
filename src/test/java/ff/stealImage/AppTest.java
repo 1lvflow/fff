@@ -28,6 +28,7 @@ import static java.lang.Thread.sleep;
 public class AppTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
 
+    String beifenUrl ="http://www.624hh.com/htm/piclist9/";
 
     private static final String baseImageUrl = "http://www.197tt.com/htm/pic%s/%s.htm";
 
@@ -55,7 +56,7 @@ public class AppTest {
         for (int j = 0; j < threadSize; j++) {
             int finalJ = j;
             fixedThreadPool.execute(() -> {
-                for (int i = imageTypeEnum.getStart() + x * finalJ; i <= imageTypeEnum.getStart() + x * (finalJ + 1); i++) {
+                for (int i = imageTypeEnum.getStart() + x * finalJ; i < imageTypeEnum.getStart() + x * (finalJ + 1); i++) {
                     downloadOne(imageTypeEnum, i);
                     try {
                         sleep(100);
