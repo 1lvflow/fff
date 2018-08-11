@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9d64617-ae75-489e-a8de-bc60e5072dbc" name="Default" comment="添加内容，视频多线程">
+    <list default="true" id="e9d64617-ae75-489e-a8de-bc60e5072dbc" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/enums/StealVideoTypeEnum.java" afterPath="$PROJECT_DIR$/src/main/java/enums/StealVideoTypeEnum.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/FileUtils.java" afterPath="$PROJECT_DIR$/src/main/java/utils/FileUtils.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/DownloadM3U8.java" afterPath="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/DownloadM3U8.java" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java" afterPath="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java" afterPath="$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/FileUtils.class" afterPath="$PROJECT_DIR$/target/classes/utils/FileUtils.class" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ff/stealImage/AppTest$ImageMessage.class" afterPath="$PROJECT_DIR$/target/test-classes/ff/stealImage/AppTest$ImageMessage.class" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ff/stealImage/AppTest.class" afterPath="$PROJECT_DIR$/target/test-classes/ff/stealImage/AppTest.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StealVideo.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StealVideo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="69" column="50" lean-forward="true" selection-start-line="69" selection-start-column="50" selection-end-line="69" selection-end-column="50" />
+            <state relative-caret-position="298">
+              <caret line="67" column="43" lean-forward="true" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="58" column="71" lean-forward="true" selection-start-line="58" selection-start-column="71" selection-end-line="58" selection-end-column="71" />
+            <state relative-caret-position="395">
+              <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -199,8 +196,8 @@
         <option value="$PROJECT_DIR$/src/main/java/utils/FileUtils.java" />
         <option value="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/DownloadM3U8.java" />
         <option value="$PROJECT_DIR$/src/main/java/enums/StealVideoTypeEnum.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java" />
         <option value="$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java" />
       </list>
     </option>
   </component>
@@ -211,8 +208,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="40" />
+    <option name="y" value="23" />
+    <option name="width" value="1400" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -260,63 +259,6 @@
             <path>
               <item name="ff" type="b2602c69:ProjectViewProjectNode" />
               <item name="fff" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ff" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ff" type="462c0819:PsiDirectoryNode" />
-              <item name="downloadm3u8" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fff" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ff" type="462c0819:PsiDirectoryNode" />
-              <item name="stealImage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -540,7 +482,7 @@
       <workItem from="1533854518827" duration="3494000" />
       <workItem from="1533906737396" duration="1130000" />
       <workItem from="1533914371096" duration="1134000" />
-      <workItem from="1533939700036" duration="4205000" />
+      <workItem from="1533939700036" duration="4922000" />
     </task>
     <task id="LOCAL-00001" summary="完善其它类型图片">
       <created>1533400369419</created>
@@ -591,11 +533,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533857202652</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="添加内容，视频多线程">
+      <created>1533945340714</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1533945340715</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56528000" />
+    <option name="totallyTimeSpent" value="57245000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -617,7 +566,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0036275694" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.62515116" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel remote servers log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -647,7 +596,8 @@
     <MESSAGE value="ts 视频转码支持" />
     <MESSAGE value="bug 导包修复" />
     <MESSAGE value="删除下载文件夹" />
-    <option name="LAST_COMMIT_MESSAGE" value="删除下载文件夹" />
+    <MESSAGE value="添加内容，视频多线程" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加内容，视频多线程" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -753,6 +703,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -954,6 +905,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,6 +1011,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ff/downloadm3u8/DownloadM3U8.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -1071,19 +1031,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ff/downloadm3u8/StealVideo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="69" column="50" lean-forward="true" selection-start-line="69" selection-start-column="50" selection-end-line="69" selection-end-column="50" />
+        <state relative-caret-position="298">
+          <caret line="67" column="43" lean-forward="true" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ff/stealImage/AppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="58" column="71" lean-forward="true" selection-start-line="58" selection-start-column="71" selection-end-line="58" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>

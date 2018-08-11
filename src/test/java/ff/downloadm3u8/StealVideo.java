@@ -57,9 +57,9 @@ public class StealVideo {
 //        System.out.println("已经完成"+size+"条");
 //        int size = 20;
 //        int oldSize = 172;
-        int size = 2;
-        int oldSize = 0;
-        int threadSize = 2;
+        int size = 12;
+        int oldSize = 4;
+        int threadSize = 4;
         int x = (size) / threadSize;
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threadSize);
 
