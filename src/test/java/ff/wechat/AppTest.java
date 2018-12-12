@@ -3,6 +3,7 @@ package ff;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,13 +11,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.FileUtils;
-import utils.HttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import utils.FileUtils;
+import utils.HttpUtils;
 
 /**
  * Unit test for simple App.
@@ -55,7 +57,7 @@ public class AppTest extends TestCase {
         String iframeEnd = "&tiny=0&auto=0";
         String mediaSrc = "https://res.wx.qq.com/voice/getvoice?mediaid=";
         String link = "http://mp.weixin.qq.com/s?__biz=MjM5NzQ5MDg2MA==&mid=2650641446&idx=3&sn=a0239d5f8aa274b84e445b2b04051b43&chksm=bed00de589a784f38ee9574fd7157cc05289eb18c02042dcbe76af04824b218318f3ffaa0849#rd";
-        String link2 = "https://mp.weixin.qq.com/s/LgeOd4GJLWkdWgVr6hr_og";
+        String link2 = "https://mp.weixin.qq.com/s/lR934f0q3Y_SnprqhwNvMQ";
         String path = "C:/Users/admin/Desktop/sitemap02.html";
         String pathMac = "/Users/xmac/Desktop/sitemap02.html";
 
@@ -69,10 +71,10 @@ public class AppTest extends TestCase {
 
         //     FileUtils.WriteStringToFile2(path,content);
         Document doc = Jsoup.parse(content);
+        System.out.println(getMainImgUrl(doc));
         Element metaContent = doc.select("div#meta_content").first();
         Elements ems = metaContent.select("em ");
         System.out.println("作者" + ems.toString());
-        System.out.println(ems.get(1).text());
         Elements aSource = metaContent.select("a");
         System.out.println("来源" + aSource.toString());
         //删除来源和作者
@@ -218,4 +220,41 @@ public class AppTest extends TestCase {
         Matcher m = patt.matcher(content);
         return m.replaceAll("");
     }
+
+
+
+    /**
+     * 获取主页图片
+     */
+    private String getMainImgUrl(Document doc) {
+        Elements element = doc.select("script");
+        String url = null;
+        for (Element ele : element) {
+            /*取得JS变量数组*/
+            String[] data = ele.data().toString().split("var");
+
+            /*取得单个JS变量*/
+            for (String variable : data) {
+
+                System.out.println("variable" + variable);
+                /*过滤variable为空的数据*/
+                if (variable.contains("=")) {
+
+                    /*取到满足条件的JS变量*/
+                    if (variable.contains("msg_cdn_url")) {
+
+                        String[] kvp = variable.split("=");
+                        url = kvp[1];
+                        url = url.trim();
+                        if (url.startsWith("\"")) {
+                            url = url.substring(1);
+                        }
+                        System.out.println("url" + kvp[1]);
+                    }
+                }
+            }
+        }
+        return url;
+    }
+
 }
