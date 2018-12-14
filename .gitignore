@@ -23,7 +23,7 @@ hs_err_pid*
 
 # Idea Files
 *.iml
-.idea
+.idea/*
 bower_components
 rebel.xml
 mybatis-plus-config.xml
