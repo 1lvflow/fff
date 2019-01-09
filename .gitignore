@@ -27,7 +27,6 @@ hs_err_pid*
 bower_components
 rebel.xml
 mybatis-plus-config.xml
-workspace.xml
 
 #libs not ignore
 !libs/*
