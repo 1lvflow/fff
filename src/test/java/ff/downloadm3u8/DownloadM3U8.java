@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import utils.M3U8;
+import utils.ffmpeg.FFmpegException;
 
 public class DownloadM3U8 {
 
@@ -24,14 +25,21 @@ public class DownloadM3U8 {
     public static String BASE_PATH = "/Users/jin/Desktop/stealm3u8/%s";
 
     // 文件地址
-    public static String s1 = "https://m3u8.pps11.com/wodeshipin_water_m3u8/zipaitoupai/83_20200226053334571/83_20200226053334571.m3u8";
+    public static String s1 = "" +
+            "https://m3u8.pps11.com/wodeshipin_water_m3u8/zipaitoupai/77_2020022306325911/77_2020022306325911.m3u8" ;
 
+
+    private static  Integer DIR = 2;
+    //
+    private static String SAVE_FILE_NAME = "test.ts";
+
+    private static String DECODE_FILE_NAME = "test.mp4";
 
 
     public static int connTimeout = 30 * 60 * 1000;
     public static int readTimeout = 30 * 60 * 1000;
-    public static void main(String[] args) throws InterruptedException {
-        String path = String.format(BASE_PATH, 1);
+    public static void main(String[] args) throws FFmpegException {
+        String path = String.format(BASE_PATH, DIR);
         File tfile = new File(path);
         if (!tfile.exists()) {
             tfile.mkdirs();
@@ -44,7 +52,10 @@ public class DownloadM3U8 {
                 downloadTs(path, basePath, m3U8Ts, "google_user_agent");
             });
         System.out.println("文件下载完毕!");
-        mergeFiles(tfile.listFiles(), path + "/" + "test.ts");
+        mergeFiles(tfile.listFiles(), path + "/" + SAVE_FILE_NAME);
+//        FfmpegUtil.ffmpeg("",
+//                String.format("%s/%s",path,SAVE_FILE_NAME),
+//                String.format("%s/%s",path,DECODE_FILE_NAME));
     }
 
     private static void downloadTs(String path, String basePath, M3U8.Ts m3U8Ts, String google_user_agent) {
