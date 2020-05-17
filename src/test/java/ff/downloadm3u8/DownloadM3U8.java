@@ -3,6 +3,7 @@ package ff.downloadm3u8;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,67 +11,80 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import utils.M3U8;
 
 public class DownloadM3U8 {
 
-    public static String BASE_PATH = "/Volumes/外接磁盘/stealm3u8/%s";
+    // 保存路径
+    public static String BASE_PATH = "/Users/jin/Desktop/stealm3u8/%s";
+
+    // 文件地址
+    public static String s1 = "https://m3u8.pps11.com/wodeshipin_water_m3u8/zipaitoupai/83_20200226053334571/83_20200226053334571.m3u8";
+
+
+
     public static int connTimeout = 30 * 60 * 1000;
     public static int readTimeout = 30 * 60 * 1000;
-    public static String s1 = "https://m3u8.121yy.com/m3u8/javbox_water_m3u8/TP-23432/TP-23432.m3u8";
-    public static String s2 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String path = String.format(BASE_PATH, 1);
         File tfile = new File(path);
         if (!tfile.exists()) {
             tfile.mkdirs();
         }
 
-        M3U8 m3u8ByURL = getM3U8ByURL(s1);
-        String basePath = m3u8ByURL.getBasepath();
-        m3u8ByURL.getTsList().stream().parallel().forEach(m3U8Ts -> {
-            File file = new File(path + File.separator + m3U8Ts.getFile());
-            if (!file.exists()) {// 下载过的就不管了
-                FileOutputStream fos = null;
-                InputStream inputStream = null;
-                try {
-                    URL url = new URL(basePath + m3U8Ts.getFile());
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    // 设置通用的请求属性
-                    conn.setRequestProperty("accept", "*/*");
-                    conn.setRequestProperty("connection", "Keep-Alive");
-                    conn.setRequestProperty("user-agent", "google_user_agent");
-                    conn.setConnectTimeout(connTimeout);
-                    conn.setReadTimeout(readTimeout);
-                    if (conn.getResponseCode() == 200) {
-                        inputStream = conn.getInputStream();
-                        fos = new FileOutputStream(file);// 会自动创建文件
-                        int len = 0;
-                        byte[] buf = new byte[1024];
-                        while ((len = inputStream.read(buf)) != -1) {
-                            fos.write(buf, 0, len);// 写入流中
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {// 关流
-                    try {
-                        if (inputStream != null) {
-                            inputStream.close();
-                        }
-                        if (fos != null) {
-                            fos.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        M3U8 m3U8 = getM3U8ByURL(s1);
+        String basePath = m3U8.getBasepath();
+        List<M3U8.Ts> tsList = m3U8.getTsList();
+        tsList.parallelStream().forEach(m3U8Ts -> {
+                downloadTs(path, basePath, m3U8Ts, "google_user_agent");
+            });
         System.out.println("文件下载完毕!");
         mergeFiles(tfile.listFiles(), path + "/" + "test.ts");
+    }
+
+    private static void downloadTs(String path, String basePath, M3U8.Ts m3U8Ts, String google_user_agent) {
+        File file = new File(path + File.separator + m3U8Ts.getFile());
+        if (!file.exists()) {// 下载过的就不管了
+            FileOutputStream fos = null;
+            InputStream inputStream = null;
+            try {
+                URL url = new URL(basePath + m3U8Ts.getFile());
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                // 设置通用的请求属性
+                conn.setRequestProperty("accept", "*/*");
+                conn.setRequestProperty("connection", "Keep-Alive");
+                conn.setRequestProperty("user-agent", google_user_agent);
+                conn.setConnectTimeout(connTimeout);
+                conn.setReadTimeout(readTimeout);
+                if (conn.getResponseCode() == 200) {
+                    inputStream = conn.getInputStream();
+                    fos = new FileOutputStream(file);// 会自动创建文件
+                    int len = 0;
+                    byte[] buf = new byte[1024];
+                    while ((len = inputStream.read(buf)) != -1) {
+                        fos.write(buf, 0, len);// 写入流中
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {// 关流
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                    if (fos != null) {
+                        fos.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static void download(String path,String title, String videoUrl, String useAgent) {
@@ -84,43 +98,7 @@ public class DownloadM3U8 {
         M3U8 m3u8ByURL = getM3U8ByURL(videoUrl);
         String basePath = m3u8ByURL.getBasepath();
         m3u8ByURL.getTsList().stream().parallel().forEach(m3U8Ts -> {
-            File file = new File(path + File.separator + m3U8Ts.getFile());
-            if (!file.exists()) {// 下载过的就不管了
-                FileOutputStream fos = null;
-                InputStream inputStream = null;
-                try {
-                    URL url = new URL(basePath + m3U8Ts.getFile());
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    // 设置通用的请求属性
-                    conn.setRequestProperty("accept", "*/*");
-                    conn.setRequestProperty("connection", "Keep-Alive");
-                    conn.setRequestProperty("user-agent", useAgent);
-                    conn.setConnectTimeout(connTimeout);
-                    conn.setReadTimeout(readTimeout);
-                    if (conn.getResponseCode() == 200) {
-                        inputStream = conn.getInputStream();
-                        fos = new FileOutputStream(file);// 会自动创建文件
-                        int len = 0;
-                        byte[] buf = new byte[1024];
-                        while ((len = inputStream.read(buf)) != -1) {
-                            fos.write(buf, 0, len);// 写入流中
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {// 关流
-                    try {
-                        if (inputStream != null) {
-                            inputStream.close();
-                        }
-                        if (fos != null) {
-                            fos.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            downloadTs(path, basePath, m3U8Ts, useAgent);
         });
         System.out.println("文件下载完毕!");
         mergeFiles(tfile.listFiles(), getResultPath(title, path));
@@ -132,6 +110,7 @@ public class DownloadM3U8 {
     }
 
 
+    // 获取M3u8 解析文件
     public static M3U8 getM3U8ByURL(String m3u8URL) {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(m3u8URL).openConnection();
@@ -206,14 +185,23 @@ public class DownloadM3U8 {
         try {
             FileOutputStream fs = new FileOutputStream(resultFile, true);
             FileChannel resultFileChannel = fs.getChannel();
-            FileInputStream tfs;
-            for (int i = 0; i < fpaths.length; i++) {
-                tfs = new FileInputStream(fpaths[i]);
-                FileChannel blk = tfs.getChannel();
-                resultFileChannel.transferFrom(blk, resultFileChannel.size(), blk.size());
-                tfs.close();
-                blk.close();
-            }
+            List<File> files = Arrays.asList(fpaths);
+            files.stream().sorted(Comparator.comparing(File::getName)).collect(Collectors.toList())
+                    .forEach(s->{
+                FileInputStream  tfs = null;
+                try {
+                    tfs = new FileInputStream(s);
+                    FileChannel blk = tfs.getChannel();
+                    resultFileChannel.transferFrom(blk, resultFileChannel.size(), blk.size());
+                    tfs.close();
+                    blk.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
             fs.close();
             resultFileChannel.close();
 
